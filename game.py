@@ -1,6 +1,6 @@
 import argparse
+import os
 import random
-import sys
 import time
 
 """
@@ -48,14 +48,21 @@ def print_field(letters):
 
 
 def countdown(t):
+    os.system('setterm -cursor off')
     print('')
-    while t:
-        mins, secs = divmod(t, 60)
-        timeformat = '{:02d}:{:02d}'.format(mins, secs)
-        print('\r' + timeformat, end='')
-        time.sleep(1)
-        t -= 1
+    try:
+        while t:
+            mins, secs = divmod(t, 60)
+            timeformat = '{:02d}:{:02d}'.format(mins, secs)
+            print('\r' + timeformat, end='')
+            time.sleep(1)
+            t -= 1
+    except KeyboardInterrupt:
+        print('\nExit game.')
+        os.system('setterm -cursor on')
+        exit()
     print('\rTime up!')
+    os.system('setterm -cursor on')
 
 
 def parse_args():
